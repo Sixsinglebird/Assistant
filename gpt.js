@@ -1,3 +1,17 @@
+////////////////////////////////////////////////
+// imports
+const fs = require("fs");
+
+const readKey = () => {
+  fs.readFile(".key.txt", "utf8", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    return data;
+  });
+};
+
 const fetchRsp = async (token) => {
   let q = process.argv[2];
   console.log("User: ", q);
@@ -27,5 +41,6 @@ const fetchRsp = async (token) => {
     })
     .catch((e) => console.log(e));
 };
-const APIKEY = "";
-fetchRsp(APIKEY);
+const APIKEY = readKey();
+console.log(APIKEY);
+// fetchRsp(APIKEY);
