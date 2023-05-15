@@ -22,7 +22,7 @@ const fetchRsp = async (token) => {
   // first two being node and gpt
   let q = process.argv[2];
   console.log("User: ", q);
-  console.log("");
+  await logger.chatLogger(`User: ${q}`);
 
   ////////////////////////////////////////////////
   // fetch a response from the provided url
@@ -42,11 +42,15 @@ const fetchRsp = async (token) => {
     }),
   })
     .then(async (rsp) => await rsp.json())
-    .then((data) => {
+    .then(async (data) => {
       if (data && data.choices && data.choices.length > 0) {
         console.log("GPTAssistant: ", data.choices[0].message.content);
+        await logger.chatLogger(
+          `GPTAssistant: ${data.choices[0].message.content}`
+        );
       } else {
         console.log("no response from GPT. Check API key.");
+        await logger.chatLogger("no response from GPT. Check API key.");
       }
     })
     .catch((e) => console.log(e));
