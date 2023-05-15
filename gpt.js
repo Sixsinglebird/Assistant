@@ -6,6 +6,7 @@ const logger = require("./Logger");
 ////////////////////////////////////////////////
 // constants
 const url = "https://api.openai.com/v1/chat/completions";
+const arg = process.argv[2];
 
 ////////////////////////////////////////////////
 // functions
@@ -17,14 +18,16 @@ const readKey = () => {
   return tmp;
 };
 
+const setKey = (key) => {
+  fs.writeFileSync("key.txt", key);
+};
+
 const fetchRsp = async (token) => {
+  let q = process.argv[2];
   // process the third argument given in the terminal.
   // first two being node and gpt
-  let q = process.argv[2];
   console.log("User: ", q);
   await logger.chatLogger(`User: ${q}`);
-
-  ////////////////////////////////////////////////
   // fetch a response from the provided url
   await fetch(url, {
     method: "POST",
@@ -55,12 +58,22 @@ const fetchRsp = async (token) => {
     })
     .catch((e) => console.log(e));
 };
-////////////////////////////////////////////////
-// chunck lord above gets his own box so im
-// not confused
 
 ////////////////////////////////////////////////
 // calls
+switch (process.argv[2]) {
+  case "":
+    console.log("Argument cannot be left blank");
+    return;
+  case "key":
+    if (process.argv[3]) {
+      setKey(process.argv[3]);
+      return;
+    } else {
+      console.log("Key argument needs an api key");
+      return;
+    }
+}
 
 const apiKey = readKey();
 fetchRsp(apiKey);

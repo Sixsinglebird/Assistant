@@ -7,7 +7,9 @@ const chatLogger = async (log) => {
         filename: "logs.log",
         level: "info",
         format: winston.format.combine(
-          winston.format.timestamp(),
+          winston.format.timestamp({
+            format: "YYYY-MM-DD HH:mm:ss A",
+          }),
           winston.format.json()
         ),
       }),
