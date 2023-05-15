@@ -1,8 +1,32 @@
+////////////////////////////////////////////////
+// imports
+const fs = require("fs");
+const logger = require("./Logger");
+
+////////////////////////////////////////////////
+// constants
+const url = "https://api.openai.com/v1/chat/completions";
+
+////////////////////////////////////////////////
+// functions
+const readKey = () => {
+  let tmp = fs.readFileSync("key.txt", "utf8", (err, data) => {
+    if (err) console.error(err);
+    return data;
+  });
+  return tmp;
+};
+
 const fetchRsp = async (token) => {
+  // process the third argument given in the terminal.
+  // first two being node and gpt
   let q = process.argv[2];
   console.log("User: ", q);
   console.log("");
-  await fetch("https://api.openai.com/v1/chat/completions", {
+
+  ////////////////////////////////////////////////
+  // fetch a response from the provided url
+  await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -27,5 +51,12 @@ const fetchRsp = async (token) => {
     })
     .catch((e) => console.log(e));
 };
-const APIKEY = "";
-fetchRsp(APIKEY);
+////////////////////////////////////////////////
+// chunck lord above gets his own box so im
+// not confused
+
+////////////////////////////////////////////////
+// calls
+
+const apiKey = readKey();
+fetchRsp(apiKey);
