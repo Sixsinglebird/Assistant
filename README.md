@@ -34,9 +34,7 @@ if everything is working properly you should see a prompt like;
 
 ### `node gpt key <apiKey>`
 
-where <apiKey> is your apiKey
-
-2. if that persitsts:
+2. if the problem persitsts:
 
 ### check that you properly set your API Key in the key.txt file.
 
