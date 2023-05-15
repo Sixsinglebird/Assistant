@@ -4,8 +4,11 @@
   "description": "A program to ask openAI's gpt-3.5-turbo model questions from your comand line.",
   "main": "gpt.js",
   "scripts": {
-    "test": "node gpt.js"
+    "test": "node gpt 'hello'"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "winston": "^3.8.2"
+  }
 }
