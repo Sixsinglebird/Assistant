@@ -1,7 +1,7 @@
 # assistant
 Creates a command line argument "gpt" for asking openAI's gpt-3.5-turbo model questions.
 # to begin
-in gpt.js place your openAI API key into the variable called APIKEY
+in the current directory create a file .key.dat and place your api key into it.
 # move file to appropriate location
 navigate to /etc
 ### `cd /etc`
