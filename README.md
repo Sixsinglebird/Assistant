@@ -1,27 +1,43 @@
 # assistant
+
+the plan:
 Creates a command line argument "gpt" for asking openAI's gpt-3.5-turbo model questions.
+THIS IS THE FREE MODEL AND YOU NEED A VALID KEY FROM OPENAI.
+
 # to begin
-in the current directory create a file .key.dat and place your api key into it.
-# move file to appropriate location
-navigate to /etc
-### `cd /etc`
-create a new directory "gpt"
-### `mkdir gpt`
-copy gpt.js into your new dir gpt/ this step varies depending on where you have gpt.js located
-### `sudo cp /pathToGPT/gpt.js /etc/gpt/`
-# update your bash aliases. 
-this step varies depending on OS.
-# for macOS
-### `nano ~/.bash_profile`
-in this file enter
-alias gpt='node /etc/gpt/gpt.js' 
-then save and close file.
-# finally 
-### `source ~/.bash_profile`
+
+run the command
+
+### `node gpt key <your api key>`
 
 # to test the gpt argument is working;
-### `gpt "hi gpt"`
-if evrything is working properly you should see a prompt like;
-### User:  hi
-###
-### GPTAssistant:  Hello! How can I assist you today?
+
+run the command
+
+### `npm test`
+
+this is an alias for
+
+### `node gpt "hello"`
+
+if everything is working properly you should see a prompt like;
+
+### User: hi
+
+### GPTAssistant: Hello! How can I assist you today?
+
+# if you get a prompt saying
+
+### GPTAssistant: no response from GPT. Check API key.
+
+1. run the command
+
+### `node gpt key <apiKey>`
+
+where <apiKey> is your apiKey
+
+2. if that persitsts:
+
+### check that you properly set your API Key in the key.txt file.
+
+if you cannot see a key.txt file, make it, and place your apiKey in it on the first line
