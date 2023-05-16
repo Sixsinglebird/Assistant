@@ -1,7 +1,15 @@
+////////////////////////////////////////////////
+// imports
 const winston = require("winston");
 
+////////////////////////////////////////////////
+// ChatLogger function implemented to track the
+// requests and responses to the API through the
+// terminal
 const chatLogger = async (log) => {
-  const logger = await winston.createLogger({
+  const logger = winston.createLogger({
+    // transports and format are the only two
+    // needed arguments for this to run.
     transports: [
       new winston.transports.File({
         filename: "logs.log",
@@ -15,7 +23,9 @@ const chatLogger = async (log) => {
       }),
     ],
   });
-  await logger.info(log);
+  logger.info(log);
 };
 
+////////////////////////////////////////////////
+// Exports
 module.exports = { chatLogger };
