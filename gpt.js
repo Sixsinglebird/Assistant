@@ -6,22 +6,26 @@ const logger = require("./Logger");
 ////////////////////////////////////////////////
 // constants
 const url = "https://api.openai.com/v1/chat/completions";
-const arg = process.argv[2];
 
 ////////////////////////////////////////////////
 // functions
+
+// reads your api key from key.txt
 const readKey = () => {
   let tmp = fs.readFileSync("key.txt", "utf8", (err, data) => {
-    if (err) console.error(err);
-    return data;
+    if (err) {
+      return;
+    }
   });
   return tmp;
 };
 
+// sets your apikey in the file key.txt
 const setKey = (key) => {
   fs.writeFileSync("key.txt", key);
 };
 
+// sends a request to the openAI Api and awaits a response
 const fetchRsp = async (token) => {
   let q = process.argv[2];
   // process the third argument given in the terminal.

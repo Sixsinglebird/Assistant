@@ -6,9 +6,13 @@ THIS IS THE FREE MODEL AND YOU NEED A VALID KEY FROM OPENAI.
 
 # to begin
 
-run the command
+run the commands
+
+### `npm install`
 
 ### `node gpt key <your api key>`
+
+### IF YOU DO NOT RUN NODE GPT KEY YOUR-API-KEY YOU WILL GET AN ERROR.
 
 # to test the gpt argument is working;
 
