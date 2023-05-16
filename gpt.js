@@ -12,7 +12,7 @@ const url = "https://api.openai.com/v1/chat/completions";
 
 // reads your api key from key.txt
 const readKey = () => {
-  let tmp = fs.readFileSync("key.txt", "utf8", (err, data) => {
+  let tmp = fs.readFileSync("key.txt", "utf8", (err) => {
     if (err) {
       return;
     }
@@ -67,6 +67,7 @@ const fetchRsp = async (token) => {
 
 ////////////////////////////////////////////////
 // calls
+
 switch (process.argv[2]) {
   case "":
     console.log("Argument cannot be left blank");
@@ -81,5 +82,9 @@ switch (process.argv[2]) {
     }
 }
 
-const apiKey = readKey();
-fetchRsp(apiKey);
+if (fs.existsSync("./key.txt")) {
+  const apiKey = readKey();
+  fetchRsp(apiKey);
+} else {
+  console.log("Please set API Key using command-- node gpt key <apkiKey>");
+}
