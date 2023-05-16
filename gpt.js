@@ -27,6 +27,7 @@ const fetchRsp = async (token) => {
   // process the third argument given in the terminal.
   // first two being node and gpt
   console.log("User: ", q);
+  console.log("");
   await logger.chatLogger(`User: ${q}`);
   // fetch a response from the provided url
   await fetch(url, {
@@ -57,6 +58,7 @@ const fetchRsp = async (token) => {
       }
     })
     .catch((e) => console.log(e));
+  console.log("");
 };
 
 ////////////////////////////////////////////////
