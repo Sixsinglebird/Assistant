@@ -2,7 +2,7 @@
 
 the plan:
 Creates a command line argument "gpt" for asking openAI's gpt-3.5-turbo model questions.
-THIS IS THE FREE MODEL AND YOU NEED A VALID KEY FROM OPENAI.
+### THIS IS THE FREE MODEL AND YOU NEED A VALID KEY FROM OPENAI.
 
 # to begin
 
