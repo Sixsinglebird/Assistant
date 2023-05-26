@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////
 // imports
 const fs = require("fs");
-const logger = require("./Logger");
+const logger = require("./winstonLogger");
 
 ////////////////////////////////////////////////
 // constants
