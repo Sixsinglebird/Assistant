@@ -1,11 +1,16 @@
 ////////////////////////////////////////////////
 // imports
 const fs = require("fs");
-const logger = require("./winstonLogger");
+const logger = require("./logger");
+const events = require("events");
+const { EventEmitter } = require("stream");
+class Event extends events {}
+const emitEvent = new Event();
 
 ////////////////////////////////////////////////
 // constants
 const url = "https://api.openai.com/v1/chat/completions";
+global.DEBUG = false;
 
 ////////////////////////////////////////////////
 // functions
@@ -30,9 +35,10 @@ const fetchRsp = async (token) => {
   let q = process.argv[2];
   // process the third argument given in the terminal.
   // first two being node and gpt
-  console.log("User: ", q);
+  console.log("User: " + q);
   console.log("");
-  await logger.chatLogger(`User: ${q}`);
+  // await logger.chatLogger(`User: ${q}`);
+  emitEvent.emit("log", "gpt", "REQUEST", q);
   // fetch a response from the provided url
   await fetch(url, {
     method: "POST",
@@ -52,13 +58,20 @@ const fetchRsp = async (token) => {
     .then(async (rsp) => await rsp.json())
     .then(async (data) => {
       if (data && data.choices && data.choices.length > 0) {
-        console.log("GPTAssistant: ", data.choices[0].message.content);
-        await logger.chatLogger(
-          `GPTAssistant: ${data.choices[0].message.content}`
+        console.log("GPTAssistant: " + data.choices[0].message.content);
+        // await logger.chatLogger(
+        //   `GPTAssistant: ${data.choices[0].message.content}`
+        // );
+        emitEvent.emit(
+          "log",
+          "gpt",
+          "RESPONSE",
+          data.choices[0].message.content
         );
       } else {
         console.log("no response from GPT. Check API key.");
-        await logger.chatLogger("no response from GPT. Check API key.");
+        // await logger.chatLogger("no response from GPT. Check API key.");
+        emitEvent.emit("log", "gpt", "ERROR", "ERROR WITH KEY");
       }
     })
     .catch((e) => console.log(e));
@@ -88,3 +101,9 @@ if (fs.existsSync("./key.txt")) {
 } else {
   console.log("Please set API Key using command-- node gpt key <apkiKey>");
 }
+
+////////////////////////////////////////////////
+// listener
+emitEvent.on("log", (event, level, message) => {
+  logger.logEvent(event, level, message);
+});
