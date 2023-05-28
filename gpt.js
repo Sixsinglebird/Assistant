@@ -3,7 +3,6 @@
 const fs = require("fs");
 const logger = require("./logger");
 const events = require("events");
-const { EventEmitter } = require("stream");
 class Event extends events {}
 const emitEvent = new Event();
 
@@ -15,7 +14,6 @@ global.DEBUG = false;
 ////////////////////////////////////////////////
 // functions
 
-// reads your api key from key.txt
 const readKey = () => {
   let tmp = fs.readFileSync("key.txt", "utf8", (err) => {
     if (err) {
@@ -25,21 +23,18 @@ const readKey = () => {
   return tmp;
 };
 
-// sets your apikey in the file key.txt
 const setKey = (key) => {
   fs.writeFileSync("key.txt", key);
 };
 
-// sends a request to the openAI Api and awaits a response
 const fetchRsp = async (token) => {
+  await emitEvent.emit("log", "FETCH", "token", token);
   let q = process.argv[2];
   // process the third argument given in the terminal.
   // first two being node and gpt
-  console.log("User: " + q);
+  await console.log("User: " + q);
   console.log("");
-  // await logger.chatLogger(`User: ${q}`);
-  emitEvent.emit("log", "gpt", "REQUEST", q);
-  // fetch a response from the provided url
+  await emitEvent.emit("log", "REQUEST", "user", q);
   await fetch(url, {
     method: "POST",
     headers: {
@@ -62,16 +57,16 @@ const fetchRsp = async (token) => {
         // await logger.chatLogger(
         //   `GPTAssistant: ${data.choices[0].message.content}`
         // );
-        emitEvent.emit(
+        await emitEvent.emit(
           "log",
-          "gpt",
           "RESPONSE",
+          "gpt",
           data.choices[0].message.content
         );
       } else {
         console.log("no response from GPT. Check API key.");
         // await logger.chatLogger("no response from GPT. Check API key.");
-        emitEvent.emit("log", "gpt", "ERROR", "ERROR WITH KEY");
+        emitEvent.emit("log", "ERROR", "gpt", "ERROR WITH KEY");
       }
     })
     .catch((e) => console.log(e));
