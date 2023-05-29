@@ -28,7 +28,6 @@ const setKey = (key) => {
 };
 
 const fetchRsp = async (token) => {
-  await emitEvent.emit("log", "FETCH", "token", token);
   let q = process.argv[2];
   // process the third argument given in the terminal.
   // first two being node and gpt
